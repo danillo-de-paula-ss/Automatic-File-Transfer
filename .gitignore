@@ -127,3 +127,16 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# Rest
+.rest/
+final_folder/
+folder1/
+folder2/
+folder3/
+folder4/
+app_settings.json
+create_test_files.py
+remove_test_files.py
+main_gui.py
+test.py
