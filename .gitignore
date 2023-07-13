@@ -140,3 +140,4 @@ create_test_files.py
 remove_test_files.py
 main_gui.py
 test.py
+.vscode
