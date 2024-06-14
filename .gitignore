@@ -141,3 +141,4 @@ remove_test_files.py
 main_gui.py
 test.py
 .vscode
+window_layout.txt

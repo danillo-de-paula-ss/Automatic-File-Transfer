@@ -47,12 +47,12 @@ def input_path(prompt: os.PathLike = '', path_type: str = 'any', exception: tupl
         else:
             raise Exception(f'{path_type} is not valid path type.')
 
-def get_traceback() -> str:
-    import traceback, sys
-    exc_type, exc_value, exc_tb = sys.exc_info()
-    tb = traceback.TracebackException(exc_type, exc_value, exc_tb)
-    tb_txt = "".join(tb.format_exception_only())
-    return tb_txt
+# def get_traceback() -> str:
+#     import traceback, sys
+#     exc_type, exc_value, exc_tb = sys.exc_info()
+#     tb = traceback.TracebackException(exc_type, exc_value, exc_tb)
+#     tb_txt = "".join(tb.format_exception_only())
+#     return tb_txt
 
 def do_task(task: dict[str, str | list[str]], event: threading.Event, q: queue.Queue) -> None:
     # file = open('errors.txt', 'a', encoding='utf-8')
