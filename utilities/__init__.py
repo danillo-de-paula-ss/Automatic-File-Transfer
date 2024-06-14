@@ -48,6 +48,8 @@ def input_path(prompt: os.PathLike = '', path_type: str = 'any', exception: tupl
             raise Exception(f'{path_type} is not valid path type.')
 
 def do_task(task: dict[str, str | list[str]], event: threading.Event, q: queue.Queue) -> None:
+    # import traceback, sys
+    # file = open('errors.txt', 'a', encoding='utf-8')
     thread = threading.current_thread()
     move_files, errors = 0, 0
     if task['ignored_files'] == ['']:
@@ -64,12 +66,16 @@ def do_task(task: dict[str, str | list[str]], event: threading.Event, q: queue.Q
                 try:
                     shutil.move(path, task['destiny'])
                     move_files += 1
-                except Exception as err:
-                    
+                except shutil.Error:
+                    # exc_type, exc_value, exc_tb = sys.exc_info()
+                    # tb = traceback.TracebackException(exc_type, exc_value, exc_tb)
+                    # tb_txt = "".join(tb.format_exception_only())
+                    # file.write(tb_txt)
                     ignored_paths.append(path)
                     errors += 1
             q.put((move_files, errors))
             # event.wait(0.1)
+    # file.close()
 
 def stats(threads: list[threading.Thread], queues: list[queue.Queue], q_backup: queue.Queue) -> None:
     thread = threading.current_thread()
