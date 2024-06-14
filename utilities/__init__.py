@@ -5,14 +5,14 @@ import shutil
 import threading
 import queue
 
-def input_ask(prompt:str = '', answers:str | Iterable[str] = 'sn', print_error:str = 'Invalid input! Try again!') -> str:
+def input_ask(prompt: str = '', answers: str | Iterable[str] = 'sn', print_error: str = 'Invalid input! Try again!') -> str:
     while True:
         ans = input(prompt)
         if ans in answers and ans != '':
             return ans
         print(f'\033[31m{print_error}\033[m')
 
-def input_ask2(prompt:str = '', sep:str = ' ', answers:Iterable[str] = ['s', 'n'], print_error:str = 'Try again!') -> list[str]:
+def input_ask2(prompt: str = '', sep: str = ' ', answers: Iterable[str] = ['s', 'n'], print_error: str = 'Try again!') -> list[str]:
     while True:
         errs = []
         anss = input(prompt).strip().split(sep)
@@ -28,7 +28,7 @@ def input_ask2(prompt:str = '', sep:str = ' ', answers:Iterable[str] = ['s', 'n'
         else:
             return anss
 
-def input_path(prompt:os.PathLike = '', path_type:str = 'any', exception:tuple[bool, str] = (False, '')) -> str:
+def input_path(prompt: os.PathLike = '', path_type: str = 'any', exception: tuple[bool, str] = (False, '')) -> str:
     while True:
         if path_type in ('any', 'file', 'dir'):
             err = 'Path' if path_type == 'any' else 'File' if path_type == 'file' else 'Directory'
@@ -47,7 +47,7 @@ def input_path(prompt:os.PathLike = '', path_type:str = 'any', exception:tuple[b
         else:
             raise Exception(f'{path_type} is not valid path type.')
 
-def do_task(task:dict, event:threading.Event, q:queue.Queue) -> None:
+def do_task(task: dict[str, str | list[str]], event: threading.Event, q: queue.Queue) -> None:
     thread = threading.current_thread()
     move_files, errors = 0, 0
     if task['ignored_files'] == ['']:
@@ -59,18 +59,19 @@ def do_task(task:dict, event:threading.Event, q:queue.Queue) -> None:
         for path in paths:
             ext = os.path.splitext(path)[-1].lower()
             if ext[1:] in task['extensions'] and path not in ignored_paths:
-                if getattr(thread, 'stop', False):
+                if not getattr(thread, 'do_run', True):
                     break
                 try:
                     shutil.move(path, task['destiny'])
                     move_files += 1
-                except:
+                except Exception as err:
+                    
                     ignored_paths.append(path)
                     errors += 1
             q.put((move_files, errors))
-            event.wait(0.1)
+            # event.wait(0.1)
 
-def stats(threads:list[threading.Thread], queues:list[queue.Queue], q_backup:queue.Queue):
+def stats(threads: list[threading.Thread], queues: list[queue.Queue], q_backup: queue.Queue) -> None:
     thread = threading.current_thread()
     value_backup = [(0, 0)]
     while getattr(thread, 'do_run', True):

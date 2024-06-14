@@ -8,7 +8,7 @@ import threading
 import queue
 
 def main():
-    # create a json file if it doesn't exits
+    # create a json file if it doesn't exist
     settings_path = os.path.join(os.path.dirname(__file__), 'app_settings.json')
     if not os.path.exists(settings_path):
         with open(settings_path, 'w') as file:
@@ -108,7 +108,7 @@ def main():
                           ''.join(['\n' + ' ' * 50] * 2), sep='', end='')
                     print('\n\033[A\033[AStopping...', sep='', end=' ', flush=True)
                     for thread in threads:
-                        thread.stop = True
+                        # thread.stop = True
                         thread.do_run = False
                         thread.join()
                     print('Done!')
