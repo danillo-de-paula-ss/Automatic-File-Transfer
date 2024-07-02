@@ -4,6 +4,7 @@
 ## Table of Contents
 * [Requirements](#-requirements)
 * [Installation](#-installation)
+* [Usage](#-usage)
 
 ## 💻 Requirements
 - Python 3.x or newer
