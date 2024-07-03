@@ -25,7 +25,7 @@ pip install -r requirements.txt
 Note: Windows users can download an .exe file in [Releases](https://github.com/danillo-de-paula-ss/Automatic-File-Transfer/releases) and place it in any location on their [PATH](https://en.wikipedia.org/wiki/PATH_%28variable%29) except for %SYSTEMROOT%\System32 (e.g. do not put in C:\Windows\System32). The .exe program file doesn't need Python installed.
 
 ## ☕ Usage
-Inside the source repository, run the file `auto_file_transfer.py` with this command:
+Inside the source repository, run the file `automatic_file_transfer.py` with this command:
 ```
 python auto_file_transfer.py
 ```

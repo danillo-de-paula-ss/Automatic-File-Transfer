@@ -1,7 +1,5 @@
 # Automatic File Transfer
 from utilities import *
-# from typing import Iterable
-# from glob import glob
 import os
 import json
 import threading
