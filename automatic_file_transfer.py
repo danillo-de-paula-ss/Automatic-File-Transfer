@@ -1,5 +1,5 @@
 # Automatic File Transfer
-from utilities import *
+from utilities.depreciated import *
 import os
 import json
 import threading
